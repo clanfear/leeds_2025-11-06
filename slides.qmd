@@ -1,0 +1,572 @@
+---
+author:
+  - name: Charles C. Lanfear
+    affiliations: University of Cambridge
+title: Potential Outcomes
+subtitle: A brief introduction
+format:
+  revealjs:
+    theme: assets/cclslides.scss
+    incremental: false
+    self-contained: false
+    width: 1200
+    height: 800
+    auto-stretch: true
+    title-slide-attributes:
+      data-background-image: img/paisley.png
+      data-background-position: bottom
+      data-background-size: contain
+filters: 
+  - assets/invert-h1.lua
+editor: source
+mouse-wheel: true
+history: false
+---
+
+
+
+## Causation
+
+&nbsp;
+
+
+Social scientists are usually interested in causal relationships^[Even if they often pretend they are not]
+
+* Why did $Y$ happen?
+* What did $X$ do?
+* How do we change $Z$?
+* Did $X$ cause $Y$?
+
+. . .
+
+**Causal inference** is about answering these questions
+
+
+
+
+## Counterfactual causality
+
+&nbsp;
+
+$X$ causes $Y$ if changing only $X$ would change $Y$
+
+::: {.incremental}
+
+This is quite broad:
+
+* $X$ need not be the only cause of $Y$
+* $X$ may cause $Y$ for multiple reasons
+* $X$ ay cause $Y$ only under certain conditions
+
+:::
+
+&nbsp;
+
+::: {.fragment .center}
+
+*All that matters for the relationship to be causal is that if the distribution of $X$ was different, it would result in a different distribution of $Y$*
+
+:::
+
+## Two worlds
+
+![](img/po_setup.svg)
+
+
+## The treatment effect
+
+![](img/po_treatment.svg)
+
+## Potential outcomes
+
+&nbsp;
+
+We can define a causal effect as the difference ($\delta$) between two worlds or **potential outcomes**:
+
+$$\delta = Y^1 - Y^0$$
+
+
+* $Y^1$: The outcome if treated
+* $Y^0$: The outcome if not treated
+
+. . .
+
+&nbsp;
+
+:::{.center}
+
+*This raises a __fundamental problem__*
+
+:::
+
+## World where A is treated
+
+![](img/po_missing_1.svg)
+
+## World where A is untreated
+
+![](img/po_missing_2.svg)
+
+## The fundamental problem
+
+&nbsp;
+
+We want to know the difference between the **factual** (what happened) and the **counterfactual** (what did not)
+
+. . .
+
+*This is a __missing data problem__*
+
+
+
+. . .
+
+::: {.incremental}
+
+Let us assume:
+
+* Potential outcomes are *fixed for each unit*
+* Potential outcomes *vary across units*
+* **Treatment** determines which potential outcome is observed
+
+:::
+
+. . .
+
+We can estimate $\delta$ if we can estimate the value of the unobserved outcomes
+
+. . .
+
+
+:::{.center}
+
+*Causal inference is largely about estimating these **counterfactuals** we cannot see*
+
+:::
+
+# An example
+
+
+## Clearing Lots
+
+&nbsp;
+
+*What is the effect of clearing vacant lots on nearby violent crime?*^[See Branas et al. (2018) *Citywide cluster randomized trial to restore blighted vacant land and its effects on violence, crime, and fear*]
+
+::: {.fragment}
+We can look at vacant lots and see what happens
+:::
+
+::: {.fragment}
+But we only see one outcome per lot:
+
+* If we clear a lot, we don't see what happens if we had not
+* If we don't clear it, we don't see what happens if we had
+:::
+
+::: {.fragment}
+What could we do?
+:::
+
+
+## Between comparison
+
+:::: {.columns}
+::: {.column}
+We could compare different lots:
+
+* [One cleared ($T=1$)]{.red}
+* [One not cleared ($T=0$)]{.blue}
+
+Use the difference ($\delta$) in observed crime as the causal effect
+
+:::
+::: {.column}
+![](img/lots.svg)
+:::
+::::
+
+&nbsp;
+
+:::: {.columns}
+::: {.column}
+
+::: {.fragment}
+*What if the difference is because the lots are different?*
+:::
+
+::: {.fragment}
+We could look at identical looking lots
+:::
+
+
+:::
+::: {.column}
+
+::: {.fragment}
+*But if those lots are identical, why did one get cleared and not the other?*
+:::
+
+::: {.fragment}
+We can't be sure they're similar without knowing *why it got cleared*
+:::
+
+:::
+::::
+
+## A substitution
+
+
+![](img/po_before-after.svg)
+
+::: {.notes}
+
+We taken Lot B to be a plausible substitute for Lot A's unobserved potential outcome
+
+But Lot B may not be a good substitute!
+
+:::
+
+## Before and after comparison
+
+:::: {.columns}
+::: {.column}
+Could compare the same lots:
+
+* [After clearing ($T=1$)]{.red}
+* [Before clearing ($T=0$)]{.blue}
+
+Use the before-and-after difference ($\delta$) as the causal effect
+
+:::
+::: {.column}
+![](img/lot.svg)
+:::
+::::
+
+&nbsp;
+
+:::: {.columns}
+::: {.column}
+
+::: {.fragment}
+*But what if the change was going to happen anyway?*
+:::
+
+::: {.fragment}
+Maybe the crime change even caused the clearing!
+:::
+
+
+:::
+::: {.column}
+
+::: {.fragment}
+*What if the lot was cleared **because** it would make a difference?*
+:::
+
+::: {.fragment}
+Maybe there would have been no difference in other lots!
+:::
+
+:::
+::::
+
+
+
+## Different potential outcomes
+
+:::: {.columns}
+::: {.column}
+These are really the same problem:
+
+<br>Differences in **potential outcomes** between cleared and uncleared lots
+
+
+
+:::
+::: {.column}
+![](img/potential_lots.svg)
+:::
+::::
+
+&nbsp;
+
+Put another way, the treatment effect is associated with the treatment; treated lots respond differently to treatment than untreated ones
+
+. . .
+
+&nbsp;
+
+How do we make sure the cleared and uncleared lots are the same?
+
+## Randomization
+
+We can do this with a randomized controlled trial:
+
+::: {.incremental}
+
+* Take a relatively large number of lots
+* Randomly pick some lots to clear
+* Cleared and uncleared lots will have similar potential outcomes *on average*
+
+:::
+
+. . .
+
+
+
+The probability of being treated is now independent of the outcomes:
+
+$$(Y^0,Y^1) \perp T $$
+
+While all the units may have different potential outcomes, the outcomes will not differ **systematically** between treatment groups
+
+. . .
+
+This means, essentially, we can **ignore** the treatment assignment process
+
+## Ignorability enables substitution
+
+![](img/po_before-after.svg)
+
+## Average treatment effects
+
+&nbsp;
+
+If we randomly assign a treatment, we can estimate a causal effect as the average difference in outcomes between treated groups
+
+This is the **average treatment effect**:
+
+$$ATE = E[Y^1]-E[Y^0]$$
+
+
+
+You can calculate this with a *cross-tab*^[Randomization is great if you hate doing maths]
+
+
+. . .
+
+&nbsp;
+
+::: {.center}
+*But what if we're interested in things we can't randomly assign?*
+:::
+
+## Back to counterfactuals
+
+&nbsp;
+
+Causal inference hinges on substituting in plausible counterfactuals in place of the potential outcomes we never observe
+
+. . .
+
+
+Substituting in counterfactuals requires knowing *why units got treated*
+
+. . .
+
+&nbsp;
+
+This is the same as with randomization:
+
+* With randomization, we *know* it happened randomly!
+* Without randomization, we need to know the assignment process! 
+
+. . .
+
+We can again achieve ignorability **conditional** on this information about treatment assignment
+
+
+## Conditional ignorability
+
+
+Ignorability can be achieved if we know $Z$, which is either (or both):
+
+* What explains differences in potential outcomes between groups
+* What explains which units get treated
+
+. . .
+
+This requires an additional **positivity** assumption: 
+
+*Every level of $Z$ must have a non-zero probability of receiving every treatment*
+
+$$(Y^0,T^1) \perp T|Z,\;\; 0<Pr(T=t|Z)<1 $$
+
+. . .
+
+
+We can then calculate the conditional average treatment effect (CATE):
+
+$$CATE=E(Y^1-Y^0|Z=z)$$
+
+. . .
+
+::: {.center}
+*But there are some other concerns*
+:::
+
+# The Stable Unit Treatment Value Assumption
+
+## SUTVA
+
+::::: {.columns}
+
+:::: {.column width="40%"}
+![](img/iceburg)
+
+::::
+
+:::: {.column width="60%"}
+
+Must have **well-defined potential outcomes**
+
+&nbsp;
+
+::: {.fragment}
+
+**Consistency:**
+
+* No *versions* of treatment
+* No *compound* treatments
+
+:::
+
+::: {.fragment}
+
+**No interference:** 
+
+* Potential outcomes depends only on the treatment the unit receives
+
+:::
+
+::::
+
+:::::
+
+
+## Consistency: Multiple treatments
+
+![](img/po_consistency_1.svg)
+
+. . .
+
+Commonly violated in experiments *and* observational research
+
+* Implementation differences
+* Composite measures
+
+## Consistency: Asymmetry
+
+![](img/po_consistency_2.svg)
+
+. . .
+
+Nearly all studies assume symmetry—but reality is often asymmetric
+
+* *Pulling a knife out doesn't heal the wound*
+* Control conditions may be a treatment for some units
+
+## Interference: Contamination
+
+
+
+![](img/po_interference_1.svg)
+
+Occurs when some units' treatments affect other units' treatments
+
+. . .
+
+These spillovers are common in theory and practice:
+
+* Participants influence each other
+* Micro-macro mechanisms: Norms, equilibriation
+
+## Interference: Exploding outcomes
+
+
+![](img/po_interference_2.svg)
+
+. . .
+
+Can often rule out in experiments, but...
+
+* This eliminates important real mechanisms
+* As a result experimental results rarely translate to large scale
+
+
+## Handling issues
+
+&nbsp;
+
+These issues are:
+
+* **Exceedingly common** in practice
+* Sometimes, even often, **fatal to identification**
+
+
+. . .
+
+
+But if you're aware, they can all be addressed with:
+
+* Careful **design**
+* Clever **estimation**
+
+. . .
+
+
+
+# Concluding thoughts
+
+
+
+## What is our counterfactual?
+
+&nbsp;
+
+Causal inference hinges on having the right counterfactual.
+
+&nbsp;
+
+::: {.fragment}
+What if we don't know what $Y_{A}^{0}$ we want?
+
+What if the $Y_{B}^{0}$ we have is not similar to $Y_{A}^{0}$?
+:::
+
+
+
+## Complementary frameworks
+
+Potential outcomes is compatible with and complementary to **structural causal models**
+
+* Structural causal models useful for thinking about:
+   * Good and bad **controls**
+   * Conditional **independence**
+* Potential outcomes useful for thinking about:
+   * Meaningful and plausible **counterfactuals**
+   * Identifying **assumptions**^[E.g., [Knox et al. (2020)](https://doi.org/10.1017/S0003055420000039)]
+
+
+## Takeaways {.dark-slide}
+
+
+**In general**
+
+* Know and be clear about counterfactuals
+* Counterfactuals come from theory, so know your theory
+* Be critical consumers and reviewers
+
+
+## Thank you {background-image="img/paisley.png" background-position="bottom" background-size="contain"}
+
+&nbsp;
+
+Contact:
+
+| Charles C. Lanfear
+| Institute of Criminology
+| University of Cambridge
+| [cl948\@cam.ac.uk](mailto:cl948@cam.ac.uk)
