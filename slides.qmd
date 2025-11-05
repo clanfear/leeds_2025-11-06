@@ -32,10 +32,14 @@ history: false
 
 Social scientists are usually interested in causal relationships^[Even if they often pretend they are not]
 
+::: {.increental}
+
 * Why did $Y$ happen?
 * What did $X$ do?
 * How do we change $Z$?
 * Did $X$ cause $Y$?
+
+:::
 
 . . .
 
@@ -56,7 +60,7 @@ This is quite broad:
 
 * $X$ need not be the only cause of $Y$
 * $X$ may cause $Y$ for multiple reasons
-* $X$ ay cause $Y$ only under certain conditions
+* $X$ may cause $Y$ only under certain conditions
 
 :::
 
@@ -133,7 +137,7 @@ Let us assume:
 
 . . .
 
-We can estimate $\delta$ if we can estimate the value of the unobserved outcomes
+We can estimate $\delta$ if we can estimate the value of the unobserved outcome(s)
 
 . . .
 
@@ -147,7 +151,7 @@ We can estimate $\delta$ if we can estimate the value of the unobserved outcomes
 # An example
 
 
-## Clearing Lots
+## Clearing lots
 
 &nbsp;
 
@@ -328,7 +332,7 @@ This means, essentially, we can **ignore** the treatment assignment process
 
 ## Ignorability enables substitution
 
-![](img/po_before-after.svg)
+![](img/po_ignorability.svg)
 
 ## Average treatment effects
 
@@ -407,7 +411,7 @@ $$CATE=E(Y^1-Y^0|Z=z)$$
 *But there are some other concerns*
 :::
 
-# The Stable Unit Treatment Value Assumption
+# The stable unit treatment value assumption
 
 ## SUTVA
 
@@ -437,7 +441,7 @@ Must have **well-defined potential outcomes**
 
 **No interference:** 
 
-* Potential outcomes depends only on the treatment the unit receives
+* A units' potential outcomes do not depend on the treatment status of other units
 
 :::
 
@@ -516,6 +520,22 @@ But if you're aware, they can all be addressed with:
 
 . . .
 
+## Handling consistency violations
+
+* Treatment fidelity
+
+* Measurement
+  * Be wary of composites
+  * Think about time
+
+* Model specification
+  * Parameters for treatment types
+  * Asymmetries
+
+
+## Handling interference
+
+* Spillover or contagion terms
 
 
 # Concluding thoughts
