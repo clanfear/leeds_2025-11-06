@@ -32,12 +32,12 @@ history: false
 
 Social scientists are usually interested in causal relationships^[Even if they often pretend they are not]
 
-::: {.increental}
+::: {.incremental}
 
-* Why did $Y$ happen?
+* Why does $Y$ happen?
 * What did $X$ do?
 * How do we change $Z$?
-* Did $X$ cause $Y$?
+* Does $X$ cause $Y$?
 
 :::
 
@@ -64,13 +64,18 @@ This is quite broad:
 
 :::
 
-&nbsp;
-
 ::: {.fragment .center}
 
 *All that matters for the relationship to be causal is that if the distribution of $X$ was different, it would result in a different distribution of $Y$*
 
 :::
+
+::: {.fragment .center}
+
+*We'll focus on two-valued $X$: a binary __treatment__*
+
+:::
+
 
 ## Two worlds
 
@@ -85,7 +90,7 @@ This is quite broad:
 
 &nbsp;
 
-We can define a causal effect as the difference ($\delta$) between two worlds or **potential outcomes**:
+We can define a causal effect---an **estimand** of interest---as the difference ($\delta$) between two worlds or **potential outcomes**:
 
 $$\delta = Y^1 - Y^0$$
 
@@ -119,9 +124,11 @@ We want to know the difference between the **factual** (what happened) and the *
 
 . . .
 
+::: {.center}
+
 *This is a __missing data problem__*
 
-
+:::
 
 . . .
 
@@ -144,7 +151,7 @@ We can estimate $\delta$ if we can estimate the value of the unobserved outcome(
 
 :::{.center}
 
-*Causal inference is largely about estimating these **counterfactuals** we cannot see*
+*Causal inference is about estimating these **counterfactuals** we cannot see*
 
 :::
 
@@ -294,16 +301,20 @@ These are really the same problem:
 :::
 ::::
 
-&nbsp;
+. . .
 
-Put another way, the treatment effect is associated with the treatment; treated lots respond differently to treatment than untreated ones
+Put in two equivalent ways:
+
+* *The treatment effect is associated with the likelihood being treated*
+* *Treated lots respond differently to treatment than untreated ones would*
 
 . . .
 
 &nbsp;
 
-How do we make sure the cleared and uncleared lots are the same?
-
+::: {.center}
+*How do we make sure the cleared and uncleared lots are the same?*
+:::
 ## Randomization
 
 We can do this with a randomized controlled trial:
@@ -338,7 +349,7 @@ This means, essentially, we can **ignore** the treatment assignment process
 
 &nbsp;
 
-If we randomly assign a treatment, we can estimate a causal effect as the average difference in outcomes between treated groups
+If we randomly assign a treatment, we can estimate a causal effect as the average difference in outcomes between the treated units and the untreated units
 
 This is the **average treatment effect**:
 
@@ -387,8 +398,8 @@ We can again achieve ignorability **conditional** on this information about trea
 
 Ignorability can be achieved if we know $Z$, which is either (or both):
 
-* What explains differences in potential outcomes between groups
-* What explains which units get treated
+* What explains differences in potential outcomes between groups (outcomes)
+* What explains which units get treated (propensities)
 
 . . .
 
@@ -458,8 +469,23 @@ Must have **well-defined potential outcomes**
 
 Commonly violated in experiments *and* observational research
 
+:::: {.columns}
+
+::: {.column}
+
 * Implementation differences
-* Composite measures
+* Treatment infidelity
+
+:::
+
+::: {.column}
+
+* [Composite](https://doi.org/10.1093/aje/kwae153) variables
+* *Asymmetries*
+
+:::
+
+::::
 
 ## Consistency: Asymmetry
 
@@ -500,7 +526,7 @@ Can often rule out in experiments, but...
 * As a result experimental results rarely translate to large scale
 
 
-## Handling issues
+## oh no
 
 &nbsp;
 
@@ -513,29 +539,64 @@ These issues are:
 . . .
 
 
-But if you're aware, they can all be addressed with:
+But if you're aware, they can often be addressed with:
 
 * Careful **design**
 * Clever **estimation**
 
-. . .
 
-## Handling consistency violations
 
-* Treatment fidelity
+## Handling issues
+
+
+:::: {.columns}
+
+::: {.column}
+
+**Consistency**
+
+* Use realistic treatments
+
+* Pay attention to implementation
 
 * Measurement
   * Be wary of composites
-  * Think about time
+  * Think carefully about time
+  * Record prior states
 
 * Model specification
-  * Parameters for treatment types
-  * Asymmetries
+  * Estimate parameters for treatment types
+  * Test for asymmetries
+
+:::
+
+::: {.column .fragment}
+
+**Interference**
+
+* Design out spillovers
+   * ...or *design them in*
+
+* Measurement
+  * Norms and signals
+  * Proximity and contact
+  * Group presence and processes
+
+* Model specification
+  * Spatial lags
+  * Network models
 
 
-## Handling interference
+:::
 
-* Spillover or contagion terms
+::::
+
+
+. . .
+
+::: {.center}
+*And it is okay to give up sometimes*
+:::
 
 
 # Concluding thoughts
@@ -546,39 +607,82 @@ But if you're aware, they can all be addressed with:
 
 &nbsp;
 
-Causal inference hinges on having the right counterfactual.
+Causal inference hinges on having the right counterfactual
 
 &nbsp;
 
-::: {.fragment}
-What if we don't know what $Y_{A}^{0}$ we want?
+. . .
 
-What if the $Y_{B}^{0}$ we have is not similar to $Y_{A}^{0}$?
+
+What if we don't know what $Y^{0}$ or $Y^{1}$ we want?
+
+* What really *would* have happened instead?
+
+. . .
+
+What if the $Y_{t=0}^{0}$ we have is not similar to $Y_{t=1}^{0}$?
+
+* Maybe no units are plausible substitutes?
+
+. . .
+
+&nbsp;
+
+::: {.center}
+Plausible counterfactuals come from **theory** and **contextual knowledge**
 :::
 
 
 
 ## Complementary frameworks
 
-Potential outcomes is compatible with and complementary to **structural causal models**
+Potential outcomes is compatible with and complementary to **structural causal models**, i.e., DAGs^[E.g., [Knox et al. (2020) Administrative records mask racially biased policing](https://doi.org/10.1017/S0003055420000039)]
+
+. . .
 
 * Structural causal models useful for thinking about:
    * Good and bad **controls**
    * Conditional **independence**
+
+. . .
+
 * Potential outcomes useful for thinking about:
    * Meaningful and plausible **counterfactuals**
-   * Identifying **assumptions**^[E.g., [Knox et al. (2020)](https://doi.org/10.1017/S0003055420000039)]
+   * Identifying **assumptions**
+   
+. . .
+
+::: {.center}
+*Use both to inform your thinking*
+:::
+
+
 
 
 ## Takeaways {.dark-slide}
 
+&nbsp;
 
-**In general**
+::: {.incremental}
 
-* Know and be clear about counterfactuals
-* Counterfactuals come from theory, so know your theory
-* Be critical consumers and reviewers
+* Know and state **counterfactuals**
 
+   * Counterfactuals are often *unstated*, sometimes *implausible*
+   * Counterfactuals come from area knowledge
+
+* **Ignorability** (i.e., non-spuriousness) is important but it *isn't everything*
+
+   * **Consistency** violations rarely considered
+
+   * **Interference** is common and more than a nuisance
+
+* Be critical researchers, consumers, and reviewers
+
+   * But be kind too: *It isn't easy*
+
+   
+
+:::
 
 ## Thank you {background-image="img/paisley.png" background-position="bottom" background-size="contain"}
 
